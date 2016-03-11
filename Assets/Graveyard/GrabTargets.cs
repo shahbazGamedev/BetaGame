@@ -3,11 +3,11 @@ using System.Collections;
 
 public class GrabTargets : MonoBehaviour {
 
-	public static bool count = 0;
+	public static int count = 0;
 	
 	void OnCollisionEnter(Collision collision) {
 		if (collision.gameObject.tag == "Targets") {
-			count++;
+			count = count + 1;
 			Destroy (collision.gameObject);
 		}
 	}
