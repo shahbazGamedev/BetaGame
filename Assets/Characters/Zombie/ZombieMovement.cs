@@ -3,10 +3,13 @@ using System.Collections;
 
 public class ZombieMovement : MonoBehaviour {
 
-	Transform player;               // Reference to the player's position.
-	//PlayerHealth playerHealth;      // Reference to the player's health.
-	//EnemyHealth enemyHealth;        // Reference to this enemy's health.
-	NavMeshAgent nav;               // Reference to the nav mesh agent.
+	public float zombieAttackDistance;
+
+	Transform player;
+	//PlayerHealth playerHealth;
+	ZombieHealth zombieHealth;
+	ZombieAttack zombieAttack;
+	NavMeshAgent nav;
 	Animator anim;
 
 
@@ -14,8 +17,9 @@ public class ZombieMovement : MonoBehaviour {
 	{
 		// Set up the references.
 		player = GameObject.FindGameObjectWithTag ("Player").transform;
-	//	playerHealth = player.GetComponent <PlayerHealth> ();
-	//	enemyHealth = GetComponent <EnemyHealth> ();
+		zombieHealth = GetComponent<ZombieHealth> ();
+		zombieAttack = GetComponent<ZombieAttack> ();
+
 		nav = GetComponent <NavMeshAgent> ();
 		anim = GetComponent<Animator> ();
 	}
@@ -23,8 +27,14 @@ public class ZombieMovement : MonoBehaviour {
 
 	void Update ()
 	{
-		nav.SetDestination (player.position);
-		anim.SetBool ("Walk", true);
+		if (zombieAttackDistance < 5) {
+			anim.SetBool ("Attack", true);
+			anim.SetBool ("Walk", false);
+		} else {
+			anim.SetBool ("Walk", true);
+			anim.SetBool ("Attack", false);
+			nav.SetDestination (player.position);
+		}
 		// If the enemy and the player have health left...
 		//if(enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
 		//{
