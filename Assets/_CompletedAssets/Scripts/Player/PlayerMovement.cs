@@ -111,7 +111,7 @@ namespace CompleteProject
             bool walking = h != 0f || v != 0f;
 
             // Tell the animator whether or not the player is walking.
-            anim.SetBool ("IsWalking", walking);
+            anim.SetBool ("run", walking);
         }
     }
 }
